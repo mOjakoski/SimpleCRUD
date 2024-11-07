@@ -1,25 +1,20 @@
-# Define project structure and dependencies
+
 $projectName = "simple-crud-app"
 $dependencies = @("express", "sqlite3", "body-parser")
 
-# 1. Create the project directory structure
 Write-Host "Setting up project directory..."
 
 New-Item -ItemType Directory -Path $projectName
 New-Item -ItemType Directory -Path "$projectName\public"
 
-# Navigate to project directory
 Set-Location -Path $projectName
 
-# 2. Initialize Node.js project
 Write-Host "Initializing Node.js project..."
 npm init -y
 
-# 3. Install necessary dependencies
 Write-Host "Installing dependencies: $($dependencies -join ', ')..."
 npm install $dependencies
 
-# 4. Create server.js with backend logic
 Write-Host "Creating server.js..."
 @'
 const express = require("express");
@@ -83,7 +78,6 @@ app.listen(3000, () => {
 });
 '@ | Out-File -Encoding utf8 "server.js"
 
-# 5. Create the public/index.html file for the frontend
 Write-Host "Creating public/index.html..."
 @'
 <!DOCTYPE html>
@@ -105,7 +99,6 @@ Write-Host "Creating public/index.html..."
 </html>
 '@ | Out-File -Encoding utf8 "public\index.html"
 
-# 6. Create the public/app.js file for frontend logic
 Write-Host "Creating public/app.js..."
 @'
 document.addEventListener("DOMContentLoaded", () => {
@@ -158,10 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 '@ | Out-File -Encoding utf8 "public\app.js"
 
-# 7. Create SQLite database file and setup initial table
 Write-Host "Creating SQLite database (database.db) and setting up the items table..."
 
-# Open SQLite connection, run SQL command, then close connection
 $connection = [System.Data.SQLite.SQLiteConnection]::new("Data Source=database.db")
 $connection.Open()
 $command = $connection.CreateCommand()
