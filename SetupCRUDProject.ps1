@@ -28,7 +28,6 @@ const db = new sqlite3.Database("./database.db");
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// Create an item (C)
 app.post("/api/items", (req, res) => {
     const { name, description } = req.body;
     db.run("INSERT INTO items (name, description) VALUES (?, ?)", [name, description], function (err) {
@@ -39,7 +38,6 @@ app.post("/api/items", (req, res) => {
     });
 });
 
-// Read all items (R)
 app.get("/api/items", (req, res) => {
     db.all("SELECT * FROM items", [], (err, rows) => {
         if (err) {
@@ -49,7 +47,6 @@ app.get("/api/items", (req, res) => {
     });
 });
 
-// Update an item (U)
 app.put("/api/items/:id", (req, res) => {
     const { id } = req.params;
     const { name, description } = req.body;
@@ -61,7 +58,6 @@ app.put("/api/items/:id", (req, res) => {
     });
 });
 
-// Delete an item (D)
 app.delete("/api/items/:id", (req, res) => {
     const { id } = req.params;
     db.run("DELETE FROM items WHERE id = ?", id, function (err) {
@@ -72,7 +68,6 @@ app.delete("/api/items/:id", (req, res) => {
     });
 });
 
-// Start the server
 app.listen(3000, () => {
     console.log("Server is running on http://localhost:3000");
 });
@@ -85,16 +80,27 @@ Write-Host "Creating public/index.html..."
 <head>
     <meta charset="UTF-8">
     <title>Simple CRUD App</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
 </head>
 <body>
-    <h1>Item Management</h1>
-    <form id="item-form">
-        <input type="text" id="name" placeholder="Name" required />
-        <input type="text" id="description" placeholder="Description" required />
-        <button type="submit">Add Item</button>
-    </form>
-    <ul id="item-list"></ul>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="title">Simple CRUD App</h1>
+            <p class="description">A simple app for creating, reading, updating, and deleting items from a list. Using SQLite.</p>
+        </header>
+        
+        <!-- Form Section -->
+        <form id="item-form" class="form">
+            <input type="text" id="name" placeholder="Name" required class="input-field" />
+            <input type="text" id="description" placeholder="Description" required class="input-field" />
+            <button type="submit" class="button">Add Item</button>
+        </form>
+
+        <!-- Item List Section -->
+        <ul id="item-list" class="item-list"></ul>
+    </div>
 </body>
 </html>
 '@ | Out-File -Encoding utf8 "public\index.html"
@@ -105,11 +111,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("item-form");
     const itemList = document.getElementById("item-list");
 
-    // Fetch and display items
     function fetchItems() {
         fetch("/api/items")
             .then(response => response.json())
             .then(data => {
+                if (!data.items) {
+                    console.error("No items found in response:", data);
+                    return;
+                }
                 itemList.innerHTML = "";
                 data.items.forEach(item => {
                     const li = document.createElement("li");
@@ -120,10 +129,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     li.appendChild(deleteBtn);
                     itemList.appendChild(li);
                 });
-            });
+            })
+            .catch(error => console.error("Error fetching items:", error));
     }
 
-    // Add a new item
     form.addEventListener("submit", event => {
         event.preventDefault();
         const name = document.getElementById("name").value;
@@ -141,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Delete an item
     function deleteItem(id) {
         fetch(`/api/items/${id}`, { method: "DELETE" })
             .then(() => fetchItems());
