@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* General Reset and Body Styling */
 * {
     margin: 0;
@@ -26,13 +24,23 @@ body {
     border-radius: 8px;
     background-color: #282a36;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
-/* Heading */
-h1 {
-    text-align: center;
+/* Header Styling */
+.header {
     margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
     color: #f8f8f2;
+    margin-bottom: 8px;
+}
+
+.description {
+    font-size: 14px;
+    color: #cfd2e0;
 }
 
 /* Form Styling */
@@ -107,3 +115,4 @@ h1 {
 .item-list button:hover {
     background-color: #ff2b2b;
 }
+
