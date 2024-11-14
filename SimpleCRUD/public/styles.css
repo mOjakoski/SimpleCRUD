@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #1e1e2f;
+    background-color: #121212; /* Darker shade of gray for background */
     color: #cfd2e0;
     font-family: Arial, sans-serif;
     display: flex;
@@ -19,8 +19,8 @@ body {
 /* Container for App Content */
 .container {
     width: 100%;
-    max-width: 500px;
-    padding: 20px;
+    max-width: 600px; /* Increased width for the container */
+    padding: 30px; /* More padding for a spacious feel */
     border-radius: 8px;
     background-color: #282a36;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -29,17 +29,17 @@ body {
 
 /* Header Styling */
 .header {
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* Slightly increased spacing */
 }
 
 .title {
-    font-size: 24px;
+    font-size: 28px; /* Slightly larger font for emphasis */
     color: #f8f8f2;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .description {
-    font-size: 14px;
+    font-size: 16px;
     color: #cfd2e0;
 }
 
@@ -48,12 +48,12 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 /* Input Fields */
 .input-field {
-    padding: 10px;
+    padding: 12px; /* Increased padding */
     font-size: 16px;
     color: #f8f8f2;
     background-color: #44475a;
@@ -69,7 +69,7 @@ body {
 
 /* Button Styling */
 .button {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     font-weight: bold;
     color: #282a36;
@@ -92,7 +92,7 @@ body {
 
 .item-list li {
     background-color: #44475a;
-    padding: 10px;
+    padding: 12px; /* Increased padding for list items */
     margin-bottom: 10px;
     border-radius: 5px;
     display: flex;
@@ -107,7 +107,7 @@ body {
     color: #f8f8f2;
     border: none;
     border-radius: 3px;
-    padding: 5px 10px;
+    padding: 6px 12px; /* Adjusted padding for balance */
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -115,4 +115,5 @@ body {
 .item-list button:hover {
     background-color: #ff2b2b;
 }
+
 
