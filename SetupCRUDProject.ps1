@@ -151,19 +151,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 '@ | Out-File -Encoding utf8 "public\app.js"
 
-Write-Host "Creating SQLite database (database.db) and setting up the items table..."
-
-$connection = [System.Data.SQLite.SQLiteConnection]::new("Data Source=database.db")
-$connection.Open()
-$command = $connection.CreateCommand()
-$command.CommandText = @"
-CREATE TABLE IF NOT EXISTS items (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    description TEXT
-);
-"@
-$command.ExecuteNonQuery()
-$connection.Close()
 
 Write-Host "Project setup complete! You can now run the server with 'node server.js'."
